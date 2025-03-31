@@ -89,7 +89,6 @@ const Board: React.FC = () => {
         <Scoreboard player1Score={player1Score} player2Score={player2Score} />
         <div className={styles.board}>
             <Deck setPlayer1Cards={setPlayer1Cards} setPlayer2Cards={setPlayer2Cards} />
-            {gameResult && <p className={styles.result}>{gameResult}</p>}
 
             <div className={`${styles.playerCards} ${currentPlayer !== 'player1' ? styles.fade : ''}`}>
                 {player1Cards.map(card => (
