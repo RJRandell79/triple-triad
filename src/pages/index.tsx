@@ -5,6 +5,7 @@ import Board from "../app/components/Board";
 
 const Home = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [isSameRuleEnabled, setIsSameRuleEnabled] = useState(false);
 
   const handleStartGame = () => {
     setIsGameStarted(true);
@@ -33,6 +34,9 @@ const Home = () => {
             </div>
 
             <div className={styles.actions}>
+              <label className="flex items-center justify-center mb-4">
+                <input type="checkbox" checked={isSameRuleEnabled} onChange={(e) => setIsSameRuleEnabled(e.target.checked)} className="mr-2" /> Enable "Same" Rule
+              </label>
               <button onClick={handleStartGame} className={styles.startButton}>Start Game</button>
             </div>
 
@@ -46,7 +50,7 @@ const Home = () => {
             </div>
             </>
           ) : (
-            <Board />
+            <Board isSameRuleEnabled={isSameRuleEnabled} />
           )}
 
           <footer className={styles.footer}>

@@ -17,7 +17,11 @@ export interface Card {
     owner: 'player1' | 'player2';
 }
 
-const Board: React.FC = () => {
+interface BoardProps {
+  isSameRuleEnabled: boolean;
+}
+
+const Board: React.FC<BoardProps> = ({ isSameRuleEnabled }) => {
   const [grid, setGrid] = useState<Array<Card | null>>(Array(9).fill(null));
   const [player1Cards, setPlayer1Cards] = useState<Card[]>([]);
   const [player2Cards, setPlayer2Cards] = useState<Card[]>([]);
@@ -60,7 +64,9 @@ const Board: React.FC = () => {
     }
 
     checkAndFlipAdjacentCards(newGrid, index, setGrid, updateScores);
-    checkSameRule(newGrid, index, setSameMessage, updateScores, setGrid);
+    if (isSameRuleEnabled) {
+      checkSameRule(newGrid, index, setSameMessage, updateScores, setGrid);
+    }
 
     setGrid(newGrid => {
       updateScores(newGrid);
