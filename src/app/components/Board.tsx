@@ -60,16 +60,20 @@ const Board: React.FC = () => {
 
     checkAndFlipAdjacentCards(newGrid, index, setGrid, updateScores);
 
-    const flippedCards = grid.map((card, i) => card?.owner !== newGrid[i]?.owner ? i : null).filter(index => index !== null) as number[];
-    console.log(flippedCards);
-
-    updateScores(newGrid);
+    setGrid(newGrid => {
+      updateScores(newGrid);
+      return newGrid;
+    });
 
     if(newGrid.every(card => card !== null)) {
-      console.log(player1Score, player2Score);
-      if(player1Score > player2Score) {
+      const player1Count = newGrid.filter(card => card?.owner === 'player1').length || 0;
+      const player2Count = newGrid.filter(card => card?.owner === 'player2').length || 0;
+
+      console.log(player1Count, player2Count);
+
+      if(player1Count > player2Count) {
           setGameResult('Player 1 wins!');
-      } else if(player2Score > player1Score) {
+      } else if(player2Count > player1Count) {
           setGameResult('Player 2 wins!');
       } else {
           setGameResult('Draw');
