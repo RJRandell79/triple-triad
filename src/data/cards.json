@@ -1,0 +1,82 @@
+[
+    {
+      "id": 1,
+      "name": "Card A",
+      "top": 5,
+      "right": 5,
+      "bottom": 5,
+      "left": 5
+    },
+    {
+      "id": 2,
+      "name": "Card B",
+      "top": 6,
+      "right": 6,
+      "bottom": 6,
+      "left": 6
+    },
+    {
+      "id": 3,
+      "name": "Card C",
+      "top": 4,
+      "right": 4,
+      "bottom": 4,
+      "left": 4
+    },
+    {
+      "id": 4,
+      "name": "Card D",
+      "top": 3,
+      "right": 3,
+      "bottom": 3,
+      "left": 3
+    },
+    {
+      "id": 5,
+      "name": "Card E",
+      "top": 6,
+      "right": 4,
+      "bottom": 8,
+      "left": 7
+    },
+    {
+      "id": 6,
+      "name": "Card F",
+      "top": 7,
+      "right": 8,
+      "bottom": 4,
+      "left": 5
+    },
+    {
+      "id": 7,
+      "name": "Card G",
+      "top": 5,
+      "right": 6,
+      "bottom": 7,
+      "left": 8
+    },
+    {
+      "id": 8,
+      "name": "Card H",
+      "top": 8,
+      "right": 7,
+      "bottom": 6,
+      "left": 5
+    },
+    {
+      "id": 9,
+      "name": "Card I",
+      "top": 6,
+      "right": 5,
+      "bottom": 8,
+      "left": 7
+    },
+    {
+      "id": 10,
+      "name": "Card J",
+      "top": 4,
+      "right": 8,
+      "bottom": 7,
+      "left": 6
+    }
+]

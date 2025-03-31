@@ -1,0 +1,15 @@
+.board {
+    @apply flex justify-center items-start h-full;
+}  
+.grid {
+    @apply grid grid-cols-3 grid-rows-3 gap-[10px] mx-[20px];
+}  
+.playerCards {
+    @apply min-w-[150px] flex flex-col gap-[10px];
+}
+.fade {
+    @apply opacity-50;
+}
+.same, .plus, .combo, .result {
+    @apply absolute top-[50vh] left-1/2 text-[#fff] bg-[#000] text-[18px] font-[700] py-[5px] px-[10px] rounded-[5px] translate-x-[-50%] translate-y-[-50%] pointer-events-none z-10;
+}

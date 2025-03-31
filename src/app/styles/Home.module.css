@@ -1,0 +1,47 @@
+@tailwind utilities;
+
+.container {
+    @apply relative p-[20px] text-center;
+  }
+  
+  .header,
+  .gameIntro {
+    @apply mb-[20px];
+  }
+  
+  .main {
+    @apply mt-[30px];
+  }
+  
+  .actions {
+    @apply mb-[30px];
+  }
+
+  .gameIntro {
+    @apply w-full max-w-[800px] mx-auto text-[18px] border p-[16px] rounded-[5px];
+  }
+  
+  .startButton {
+    @apply bg-[#4CAF50] text-[#ffffff] text-[18px] py-[10px] px-[20px] border-none cursor-pointer rounded-[5px];
+    &:hover {
+      @apply bg-[#45a049];
+    }
+  }
+  
+  .gameRules {
+    @apply mt-[20px] text-center;
+    ul {
+        @apply list-none pl-[0];
+    }
+  }
+  
+  .footer {
+    @apply mt-[50px] text-[14px] text-[#888];
+    a {
+      @apply text-[#555];
+      &:hover {
+        @apply text-[#000];
+      }
+    }
+  }
+  

@@ -1,0 +1,44 @@
+.card {
+    @apply relative w-[150px] h-[200px] border-solid border-[black] border-2 rounded-[5px] bg-[#fff] transition-transform duration-600 transform-3d overflow-hidden;
+}
+.card > .front, 
+.card > .back {
+    @apply absolute w-full h-full backface-hidden flex flex-col items-center justify-center;
+}
+.card > .back {
+    @apply bg-[#333];
+}
+.card > .back {
+    @apply transform rotate-y-180;
+}
+.card.flip {
+    @apply transform rotate-y-180 scale-105;
+}
+.name,
+.numbers {
+    @apply absolute;
+}
+.name {
+    @apply w-full bottom-[0] right-[0] left-[0] font-[700] px-[5px] pt-[2px] text-right;
+}  
+.numbers {
+    @apply top-[10px] left-[10px] flex flex-wrap max-w-[30px] gap-x-[5px] justify-center;
+}
+.top, .bottom {
+    @apply grow min-w-full;
+}
+.top, .right, .bottom, .left {
+    @apply text-[#fff] font-[700] leading-[110%];
+}
+.bottom {
+    @apply order-4;
+}
+.right {
+    @apply order-3;
+}
+.player1 {
+    @apply bg-[#f44336];
+}
+.player2 {
+    @apply bg-[#2196F3];
+}
