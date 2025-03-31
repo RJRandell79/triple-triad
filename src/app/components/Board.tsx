@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { generatePlayerCards } from '../utils/cards';
 import { checkAndFlipAdjacentCards } from '../utils/rules';
 import GridCell from './GridCell';
 import CardComponent from './Card';
@@ -24,12 +25,26 @@ const Board: React.FC = () => {
   const [player2Score, setPlayer2Score] = useState(0);
   const [currentPlayer, setCurrentPlayer] = useState<'player1' | 'player2'>('player1');
   const [gameResult, setGameResult] = useState<string | null>(null);
+  const [showNewGameDialog, setShowNewGameDialog] = useState(false);
 
   const updateScores = (grid: Array<Card | null>) => {
     const player1Count = grid.filter(card => card?.owner === 'player1').length;
     const player2Count = grid.filter(card => card?.owner === 'player2').length;
     setPlayer1Score(player1Count);
     setPlayer2Score(player2Count);
+  };
+
+  const resetGame = () => {
+    const { player1Cards, player2Cards } = generatePlayerCards();
+
+    setGrid(Array(9).fill(null));
+    setPlayer1Cards(player1Cards as Card[]);
+    setPlayer2Cards(player2Cards as Card[]);
+    setPlayer1Score(0);
+    setPlayer2Score(0);
+    setCurrentPlayer('player1');
+    setGameResult(null);
+    setShowNewGameDialog(false);
   };
 
   const handleDrop = (item: Card, index: number) => {
@@ -59,6 +74,7 @@ const Board: React.FC = () => {
       } else {
           setGameResult('Draw');
       }
+      setShowNewGameDialog(true);
     }
 
     setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
@@ -87,6 +103,13 @@ const Board: React.FC = () => {
                 ))}
             </div>
         </div>
+
+        {showNewGameDialog && (
+        <div className={styles.dialog}>
+          <p>{gameResult}</p>
+          <button onClick={resetGame}>Start New Game</button>
+        </div>
+      )}
     </>
   );
 };
