@@ -9,6 +9,49 @@ export const getAdjacentPositions = (index: number): Array<{ index: number; side
   ];
 };
 
+
+export const checkSameRule = (
+  grid: Array<Card | null>,
+  index: number,
+  setSameMessage: (value: boolean) => void,
+  updateScores: (grid: Array<Card | null>) => void,
+  setGrid: (grid: Array<Card | null>) => void
+) => {
+  const card = grid[index];
+  if (!card) return;
+
+  const newGrid = [...grid];
+  const matchedCards: number[] = [];
+  const adjacentPositions = getAdjacentPositions(index);
+
+  let hasOpponentCard = false;
+
+  adjacentPositions.forEach(({ index: adjacentIndex, side, oppositeSide }) => {
+    if (adjacentIndex < 0 || adjacentIndex >= 9) return;
+    const adjacentCard = grid[adjacentIndex];
+    if (!adjacentCard) return;
+
+    if (adjacentCard.owner !== card.owner) {
+      hasOpponentCard = true;
+    }
+
+    if (card[side] === adjacentCard[oppositeSide]) {
+      matchedCards.push(adjacentIndex);
+    }
+  });
+
+  if (matchedCards.length >= 2 && hasOpponentCard) {
+    console.log('Same rule matched');
+    setSameMessage(true);
+    setTimeout(() => setSameMessage(false), 2000);
+    matchedCards.forEach((matchedIndex) => {
+      newGrid[matchedIndex] = { ...newGrid[matchedIndex]!, owner: card.owner };
+    });
+    setGrid(newGrid);
+    updateScores(newGrid);
+  }
+};
+
 export const checkAndFlipAdjacentCards = (
     grid: Array<Card | null>,
     index: number,
