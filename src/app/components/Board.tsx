@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { generatePlayerCards } from '../utils/cards';
-import { checkAndFlipAdjacentCards, checkSameRule } from '../utils/rules';
+import { checkAndFlipAdjacentCards, checkSameRule, checkPlusRule } from '../utils/rules';
 import GridCell from './GridCell';
 import CardComponent from './Card';
 import Deck from './Deck';
@@ -19,9 +19,10 @@ export interface Card {
 
 interface BoardProps {
   isSameRuleEnabled: boolean;
+  isPlusRuleEnabled: boolean;
 }
 
-const Board: React.FC<BoardProps> = ({ isSameRuleEnabled }) => {
+const Board: React.FC<BoardProps> = ({ isSameRuleEnabled, isPlusRuleEnabled }) => {
   const [grid, setGrid] = useState<Array<Card | null>>(Array(9).fill(null));
   const [player1Cards, setPlayer1Cards] = useState<Card[]>([]);
   const [player2Cards, setPlayer2Cards] = useState<Card[]>([]);
@@ -29,6 +30,7 @@ const Board: React.FC<BoardProps> = ({ isSameRuleEnabled }) => {
   const [player2Score, setPlayer2Score] = useState(0);
   const [currentPlayer, setCurrentPlayer] = useState<'player1' | 'player2'>('player1');
   const [sameMessage, setSameMessage] = useState(false);
+  const [plusMessage, setPlusMessage] = useState(false);
   const [gameResult, setGameResult] = useState<string | null>(null);
   const [showNewGameDialog, setShowNewGameDialog] = useState(false);
 
@@ -64,8 +66,12 @@ const Board: React.FC<BoardProps> = ({ isSameRuleEnabled }) => {
     }
 
     checkAndFlipAdjacentCards(newGrid, index, setGrid, updateScores);
+    
     if (isSameRuleEnabled) {
       checkSameRule(newGrid, index, setSameMessage, updateScores, setGrid);
+    }
+    if (isPlusRuleEnabled) {
+      checkPlusRule(newGrid, index, setPlusMessage, updateScores, setGrid);
     }
 
     setGrid(newGrid => {
@@ -99,6 +105,7 @@ const Board: React.FC<BoardProps> = ({ isSameRuleEnabled }) => {
             <Deck setPlayer1Cards={setPlayer1Cards} setPlayer2Cards={setPlayer2Cards} />
 
             {sameMessage && <p className={styles.same}>Same</p>}
+            {plusMessage && <p className={styles.plus}>Plus</p>}
 
             <div className={`${styles.playerCards} ${currentPlayer !== 'player1' ? styles.fade : ''}`}>
                 {player1Cards.map(card => (

@@ -9,6 +9,61 @@ export const getAdjacentPositions = (index: number): Array<{ index: number; side
   ];
 };
 
+export const checkPlusRule = (
+  grid: Array<Card | null>,
+  index: number,
+  setPlusMessage: (value: boolean) => void,
+  updateScores: (grid: Array<Card | null>) => void,
+  setGrid: (grid: Array<Card | null>) => void
+) => {
+  const card = grid[index];
+  if (!card) return;
+
+  const newGrid = [...grid];
+  const matchedPairs: number[] = [];
+  const adjacentPositions = getAdjacentPositions(index);
+  const sums: { [key: number]: number } = {};
+
+  let hasOpponentCard = false;
+
+  adjacentPositions.forEach(({ index: adjacentIndex, side, oppositeSide }) => {
+    if (adjacentIndex < 0 || adjacentIndex >= 9) return;
+    const adjacentCard = grid[adjacentIndex];
+    if (!adjacentCard) return;
+
+    if (adjacentCard.owner !== card.owner) {
+      hasOpponentCard = true;
+    }
+
+    const sum = (card[side as keyof Card] as number) + (adjacentCard[oppositeSide as keyof Card] as number);
+    sums[adjacentIndex] = sum;
+  });
+
+  const sumEntries = Object.entries(sums);
+
+  for (let i = 0; i < sumEntries.length; i++) {
+    for (let j = i + 1; j < sumEntries.length; j++) {
+      if (sumEntries[i][1] === sumEntries[j][1]) {
+        matchedPairs.push(parseInt(sumEntries[i][0]), parseInt(sumEntries[j][0]));
+      }
+    }
+  }
+
+  if (matchedPairs.length > 0 && hasOpponentCard) {
+    console.log('Plus rule matched');
+    setPlusMessage(true);
+    setTimeout(() => setPlusMessage(false), 2000);
+
+    matchedPairs.forEach((matchedIndex) => {
+      if (newGrid[matchedIndex]) {
+        newGrid[matchedIndex] = { ...newGrid[matchedIndex]!, owner: card.owner };
+      }
+    });
+
+    setGrid(newGrid);
+    updateScores(newGrid);
+  }
+};
 
 export const checkSameRule = (
   grid: Array<Card | null>,
