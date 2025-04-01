@@ -66,7 +66,7 @@ const Board: React.FC<BoardProps> = ({ isSameRuleEnabled, isPlusRuleEnabled }) =
     }
 
     checkAndFlipAdjacentCards(newGrid, index, setGrid, updateScores);
-    
+
     if (isSameRuleEnabled) {
       checkSameRule(newGrid, index, setSameMessage, updateScores, setGrid);
     }
@@ -79,21 +79,25 @@ const Board: React.FC<BoardProps> = ({ isSameRuleEnabled, isPlusRuleEnabled }) =
       return newGrid;
     });
 
-    if(newGrid.every(card => card !== null)) {
-      const player1Count = newGrid.filter(card => card?.owner === 'player1').length || 0;
-      const player2Count = newGrid.filter(card => card?.owner === 'player2').length || 0;
+    setTimeout(() => {
+      const updatedGrid = [...newGrid];
 
-      console.log(player1Count, player2Count);
+      if(updatedGrid.every(card => card !== null)) {
+        const player1Count = updatedGrid.filter(card => card?.owner === 'player1').length || 0;
+        const player2Count = updatedGrid.filter(card => card?.owner === 'player2').length || 0;
 
-      if(player1Count > player2Count) {
-          setGameResult('Player 1 wins!');
-      } else if(player2Count > player1Count) {
-          setGameResult('Player 2 wins!');
-      } else {
-          setGameResult('Draw');
+        console.log(player1Count, player2Count);
+
+        if(player1Count > player2Count) {
+            setGameResult('Player 1 wins!');
+        } else if(player2Count > player1Count) {
+            setGameResult('Player 2 wins!');
+        } else {
+            setGameResult('Draw');
+        }
+        setShowNewGameDialog(true);
       }
-      setShowNewGameDialog(true);
-    }
+    }, 100);
 
     setCurrentPlayer(currentPlayer === 'player1' ? 'player2' : 'player1');
   };
